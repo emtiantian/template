@@ -1,0 +1,139 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  /* font: inherit; */
+  vertical-align: baseline;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  box-sizing: border-box;
+}
+
+html,
+body,
+form,
+fieldset,
+p,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  -webkit-text-size-adjust: none;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+body {
+  margin: 0 auto;
+  min-width: 1100px;
+  max-width: 100%;
+  font-family: "Microsoft YaHei", Arial, Helvetica, serif;
+  color: #3C4347;
+  height: 100%;
+}
+
+ol,
+ul,
+li {
+  list-style: none
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0
+}
+
+mark {
+  background: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal
+}
+
+blockquote,
+q {
+  quotes: none
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none
+}
+
+strong,
+var,
+em,
+i {
+  /* font-style: normal; */
+  /* font-weight: normal */
+}
+
+a {
+  text-decoration: none;
+  color: rgba(60, 67, 71, 1);
+}
+
+img {
+  display: inline-block;
+  width: 100%;
+  vertical-align: middle;
+}
+
+del {
+  text-decoration: line-through
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input,
+select,
+textarea,
+button {
+  border-radius: 5px;
+  font-size: 14px;
+  resize: none;
+  outline: 0;
+  font-family: Microsoft Yahei, Tahoma, Helvetica, Arial, sans-serif;
+  -webkit-appearance: none;
+  /*去除系统默认的样式*/
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  background: none;
+  /* 点击高亮的颜色*/
+}
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+button {
+  -webkit-appearance: none;
+}
+
+html {
+  height: 100%;
+  font-size: 12px;
+}
+
+a:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
