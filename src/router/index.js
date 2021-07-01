@@ -8,6 +8,8 @@ import bb from '../views/bb.vue';
 Vue.use(VueRouter);
 
 export const routes = [
+  {path:"/",
+    redirect: "/1"},
   {
     path: '/1',
     component: Layout,
