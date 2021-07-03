@@ -1,46 +1,52 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Layout from '@/views/layout/Layout.vue';
-import Home from '../views/Home.vue';
-import aa from '../views/aa.vue';
-import bb from '../views/bb.vue';
+import map from '../views/map.vue';
+import user from '../views/user.vue'
+import bus from '../views/bus.vue'
 
 Vue.use(VueRouter);
 
 export const routes = [
   {path:"/",
-    redirect: "/1"},
+    redirect: "/home"},
   {
-    path: '/1',
+    path: '/home',
     component: Layout,
-    name: '1',
-    meta: { title: '1', category: '1', parent: '-1' },
+    meta: { title: 'home', category: 'home', parent: '-1' },
+
     children: [
       {
-        path: 'home',
-        component: Home,
+        path: '',
+        component: map,
         name: 'home',
-        meta: { title: 'home1', category: 'home1', parent: '1' },
-      },
-      {
-        path: 'aa',
-        component: aa,
-        name: 'aa',
-        meta: { title: 'aa', category: 'aa', parent: '1' },
+        meta: { title: 'home', category: 'home' },
       },
     ],
   },
   {
-    path: '/2',
+    path: '/user',
     component: Layout,
-    name: '2',
-    meta: { title: '2', category: '2', parent: '-1' },
+    meta: { title: 'user', category: 'user', parent: '-1' },
     children: [
       {
-        path: 'bb',
-        component: bb,
-        name: 'bb',
-        meta: { title: 'bb', category: 'bb', parent: '2' },
+        path: '',
+        component: user,
+        name: 'user',
+        meta: { title: 'user', category: 'user'  },
+      },
+    ],
+  },
+  {
+    path: '/bus',
+    component: Layout,
+    meta: { title: 'bus', category: 'bus', parent: '-1' },
+    children: [
+      {
+        path: '',
+        component: bus,
+        name: 'bus',
+        meta: { title: 'bus', category: 'bus' },
       },
     ],
   },
@@ -48,6 +54,7 @@ export const routes = [
     // login
     path: '/login',
     name: 'login',
+    hidden:true,
     meta: { title: 'login', category: 'login', parent: '-1' },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

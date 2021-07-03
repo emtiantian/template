@@ -3,10 +3,16 @@
     <transition-group name="breadcrumb">
       <template v-for="(item, index) in levelList">
         <el-breadcrumb-item :key="item.path" v-if="item.meta.title">
-          <span v-if="item.redirect === 'noredirect' || index == levelList.length - 1" class="no-redirect">{{
+          <span
+            v-if="
+              item.redirect === 'noredirect' || index == levelList.length - 1
+            "
+            class="no-redirect"
+            >{{ item.meta.title }}</span
+          >
+          <router-link v-else :to="{ name: item.name }">{{
             item.meta.title
-          }}</span>
-          <router-link v-else :to="{ name: item.name }">{{ item.meta.title }}</router-link>
+          }}</router-link>
         </el-breadcrumb-item>
       </template>
     </transition-group>
@@ -35,18 +41,23 @@ export default {
       const { routes } = this.$router.options;
       for (let i = 0; i < routes.length; i += 1) {
         if (this.$route.meta.category) {
-          if (routes[i].meta.category === this.$route.meta.category) {
+          if (
+            routes[i].meta &&
+            routes[i].meta.category === this.$route.meta.category
+          ) {
             this.root = routes[i];
             break;
           }
         }
       }
       this.levelList.unshift(this.$route);
-      this.setLevelList(this.$route, this.root.children);
+      if (this.root) {
+        this.setLevelList(this.$route, this.root.children);
+      }
     },
     setLevelList(route, children) {
       for (let i = 0; i < children.length; i += 1) {
-        if (route.meta.parent === children[i].name) {
+        if (children[i] && route.meta.parent === children[i].name) {
           this.levelList.unshift(children[i]);
         }
       }

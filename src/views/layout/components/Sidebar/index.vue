@@ -9,7 +9,11 @@
       active-text-color="#fff"
       :default-active="defaultActiveRoute"
     >
-      <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
+      <hamburger
+        class="hamburger-container"
+        :toggleClick="toggleSideBar"
+        :isActive="sidebar.opened"
+      ></hamburger>
 
       <sidebar-item :routes="routers"></sidebar-item>
     </el-menu>
@@ -17,15 +21,15 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import Hamburger from '@/components/Hamburger/index.vue';
-import { routes } from '@/router/index';
-import SidebarItem from './SidebarItem.vue';
+import { mapGetters } from "vuex";
+import Hamburger from "@/components/Hamburger/index.vue";
+import { routes } from "@/router/index";
+import SidebarItem from "./SidebarItem.vue";
 
 export default {
   data() {
     return {
-      defaultActiveRoute: '',
+      defaultActiveRoute: "homePage",
       routers: routes,
     };
   },
@@ -33,41 +37,42 @@ export default {
   components: { SidebarItem, Hamburger },
 
   mounted() {
-    this.judgeActiveRoute(this.$route.name);
+    this.judgeActiveRoute(this.$route.path);
   },
 
   computed: {
-    ...mapGetters(['permission_routers', 'sidebar']),
+    ...mapGetters(["sidebar"]),
     isCollapse() {
       return !this.sidebar.opened;
     },
   },
 
   watch: {
-    '$route.name': function (val) {
+    "$route.name": function (val) {
       this.judgeActiveRoute(val);
     },
   },
 
   methods: {
     toggleSideBar() {
-      this.$store.dispatch('toggleSideBar');
+      this.$store.dispatch("toggleSideBar");
     },
 
-    judgeActiveRoute(routeName) {
-      const originRoute = {
-        projectManage: ['projectManage'],
-        AlarmManage: ['Alarm', 'alarmConfig', 'addGroup', '编辑群组'],
-        LinkageManage: ['LinkageManage'],
-        RecordManage: ['Record'],
-        DeviceRecord: ['DeviceRecord'],
-      };
-
-      // eslint-disable-next-line no-restricted-syntax
+    judgeActiveRoute(name) {
+      const originRoute = this.routers;
       for (const ii in originRoute) {
-        if (originRoute[ii].indexOf(routeName) > -1) {
-          this.defaultActiveRoute = ii;
+        if (originRoute[ii].name && originRoute[ii].name.indexOf(name) > -1) {
+          this.defaultActiveRoute = originRoute[ii].name;
           return;
+        }
+        if (originRoute[ii].children) {
+          for (let i = 0; i < originRoute[ii].children.length; i += 1) {
+            let childrenRoute = originRoute[ii].children[i];
+            if (childrenRoute.name && name.indexOf(childrenRoute.name) > -1) {
+              this.defaultActiveRoute = childrenRoute.name;
+              return;
+            }
+          }
         }
       }
     },
