@@ -1,4 +1,4 @@
-
+|
 
 import axios  from "axios";
 import { message } from "element-ui";
@@ -10,11 +10,19 @@ axios.interceptors.request.use((config)=>{
 })
 axios.interceptors.response.use((response)=>{
   if(response.status === 200){
-    return response.data
+    if(response.data.status){
+      return response.data.data
+    }else{
+      message({
+        type:"error",
+        text:response.data.message||"服务繁忙请重试"
+      })
+    }
+
   }else{
     message({
       type:"error",
-      text:response.data.error||"服务繁忙请重试"
+      text:response.data.message||"服务繁忙请重试"
     })
   }
 })

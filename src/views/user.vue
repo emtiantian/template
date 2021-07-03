@@ -2,6 +2,9 @@
   <div>
     <data-table :param="param" :data="data" @buttonClick="buttonClick">
     </data-table>
+    <el-form :model="form">
+      <el-form-item label=""></el-form-item>
+    </el-form>
   </div>
 </template>
 
@@ -38,6 +41,30 @@ export default {
         },
       ],
       data: [{ haohe: "123" }],
+      formDefault: {
+        name: "",
+        code: "",
+        phone: "",
+        address: "",
+        cardcode: "",
+        remark: "",
+      },
+      form: {
+        name: "",
+        code: "",
+        phone: "",
+        address: "",
+        cardcode: "",
+        remark: "",
+      },
+      formItem: [
+        { key: "name", label: "姓名" },
+        { key: "code", label: "编码" },
+        { key: "phone", label: "电话" },
+        { key: "address", label: "地址" },
+        { key: "cardcode", label: "卡片code" },
+        { key: "remark", label: "备注" },
+      ],
     };
   },
   methods: {
