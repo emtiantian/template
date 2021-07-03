@@ -4,7 +4,7 @@ $menuHover: #242C39;
 #app {
   // 主体区域
   .main-container {
-    height: 100%;
+    height: calc(100% - 60px);
     transition: margin-left 0.28s;
     margin-left: 180px;
     padding-top: 60px;

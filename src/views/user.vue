@@ -1,6 +1,7 @@
 <template>
   <div>
-    <data-table :param="param" :data="data"> </data-table>
+    <data-table :param="param" :data="data" @buttonClick="buttonClick">
+    </data-table>
   </div>
 </template>
 
@@ -21,7 +22,7 @@ export default {
         {
           prop: "button",
           type: "button",
-          name: "操作",
+          label: "操作",
           button: [
             {
               key: "update",
@@ -38,6 +39,11 @@ export default {
       ],
       data: [{ haohe: "123" }],
     };
+  },
+  methods: {
+    buttonClick(type, val) {
+      console.log(type + val);
+    },
   },
 };
 </script>

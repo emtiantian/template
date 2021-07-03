@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: 'AppMain',
+  name: "AppMain",
   computed: {
     key() {
       return this.$route.fullPath;
@@ -20,10 +20,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+@import "@/styles/variables";
 .app-main {
   padding: 16px;
-  height: 100%;
+  height: calc(100% - 32px);
   background-color: #f0f2f5;
   overflow: auto;
   color: $fontcolor;

@@ -6,6 +6,7 @@ import router from './router';
 import '@/styles/index.scss';
 import 'element-ui/lib/theme-chalk/index.css';
 import './icons'; // icon
+import ol from 'openlayers';
 
 Vue.config.productionTip = false;
 Vue.use(elementUI);

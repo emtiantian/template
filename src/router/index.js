@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Layout from '@/views/layout/Layout.vue';
-import map from '../views/map.vue';
+import home from '../views/Home.vue';
+import page from '../views/Page.vue';
 import user from '../views/user.vue'
 import bus from '../views/bus.vue'
 
@@ -18,9 +19,23 @@ export const routes = [
     children: [
       {
         path: '',
-        component: map,
+        component: home,
         name: 'home',
         meta: { title: 'home', category: 'home' },
+      },
+    ],
+  },
+  {
+    path: '/page',
+    component: Layout,
+    meta: { title: 'page', category: 'page', parent: '-1' },
+
+    children: [
+      {
+        path: '',
+        component: page,
+        name: 'page',
+        meta: { title: 'page', category: 'page' },
       },
     ],
   },

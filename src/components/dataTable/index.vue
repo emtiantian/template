@@ -14,34 +14,40 @@
           :key="item.prop"
         ></el-table-column>
         <el-table-column v-else :key="item.prop" :label="item.label">
-          <template slot-scope="scope" v-for="button in item.button">
-            <el-popconfirm
-              title="这是一段内容确定删除吗？"
-              v-if="button.popconfirm"
-              :key="button.key"
-            >
-              <el-button :type="button.type" @click="buttonClick(item, scope)">
+          <template slot-scope="scope">
+            <template v-for="button in item.button">
+              <el-popconfirm
+                :title="button.popconfirm.label"
+                v-if="button.popconfirm && button.popconfirm.val"
+                :key="button.key"
+                @confirm="buttonClick(button, scope)"
+              >
+                <el-button slot="reference" :type="button.type">
+                  {{ button.label }}
+                </el-button>
+              </el-popconfirm>
+              <el-button
+                :type="button.type || 'primary'"
+                @click="buttonClick(button, scope)"
+                :key="button.key"
+                v-else
+              >
                 {{ button.label }}
               </el-button>
-            </el-popconfirm>
-            <el-button
-              :type="button.type"
-              @click="buttonClick(item, scope)"
-              :key="button.key"
-              v-else
-            >
-              {{ button.label }}
-            </el-button>
+            </template>
           </template>
         </el-table-column>
       </template>
     </el-table>
     <el-pagination
+      small
       :total="total"
       :current-page="currentPage"
       :page-size="tableParam.pageSize"
       @current-change="currentChange"
       :layout="tableParam.layout"
+      :hide-on-single-page="true"
+      style="text-align: right"
     ></el-pagination>
   </div>
 </template>
@@ -124,7 +130,7 @@ export default {
       this.currentPage = val;
     },
     buttonClick(item, scpoe) {
-      $emit(item.key, scpoe);
+      this.$emit("buttonClick", item.key, scpoe.row);
     },
   },
   watch: {
