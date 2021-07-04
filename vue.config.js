@@ -3,8 +3,16 @@ var webpack = require("webpack");
 
 const publicPath = '/';
 module.exports = {
-
   publicPath,
+  devServer: {
+    proxy: {
+      '/Svc': {
+        target: 'http://222.223.86.32:18081',
+        ws: true,
+        changeOrigin: true
+      }
+    }
+  },
   // 生产环境是否生成 sourceMap 文件
   productionSourceMap: false,
   chainWebpack: (config) => {

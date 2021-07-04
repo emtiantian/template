@@ -14,6 +14,7 @@
       :formItem="formItem"
       :formData="form"
       @submit="submit"
+      @cancel="cancel"
     ></dialog-form>
   </div>
 </template>
@@ -120,17 +121,20 @@ export default {
     },
     add(val) {
       // addUser(val).then(() => {
-      //   this.$message("添加成功");
+      //  this.get()
+      //   this.$message.success("添加成功");
       // });
     },
     edit(val) {
       // edit(val.id, val).then(() => {
-      //   this.$message("编辑成功");
+      //  this.get()
+      //   this.$message.success("编辑成功");
       // });
     },
     delete(id) {
       // delete(val.id, val).then(() => {
-      //   this.$message("删除成功");
+      //  this.get()
+      //   this.$message.success("删除成功");
       // });
     },
     editClick(data) {
@@ -159,7 +163,11 @@ export default {
       this.submitType = "add";
       this.form = cloneDeep(this.formDefault);
     },
+    cancel() {
+      this.dialogVisible = false;
+    },
     submit(val) {
+      this.dialogVisible = false;
       switch (this.submitType) {
         case "add":
           this.add(val);

@@ -14,6 +14,8 @@
       :formItem="formItem"
       :formData="form"
       @submit="submit"
+      @cancel="cancel"
+      :title="dialogtitle"
     ></dialog-form>
   </div>
 </template>
@@ -76,18 +78,14 @@ export default {
       formDefault: {
         name: "",
         code: "",
-        phone: "",
-        address: "",
-        cardcode: "",
-        remark: "",
+        gpsmachinecode: "",
+        personcardmachinecode: "",
       },
       form: {
         name: "",
         code: "",
-        phone: "",
-        address: "",
-        cardcode: "",
-        remark: "",
+        gpsmachinecode: "",
+        personcardmachinecode: "",
       },
       formItem: [
         { key: "name", label: "姓名", type: "input" },
@@ -112,17 +110,20 @@ export default {
     },
     add(val) {
       addCar(val).then(() => {
-        this.$message("添加成功");
+        this.$message.success("添加成功");
+        this.get();
       });
     },
     edit(val) {
       // edit(val.id, val).then(() => {
-      //   this.$message("编辑成功");
+      //   this.$message.success("编辑成功");
+      //  this.get();
       // });
     },
     delete(id) {
       // delete(val.id, val).then(() => {
-      //   this.$message("删除成功");
+      //   this.$message.success("删除成功");
+      //  this.get();
       // });
     },
     editClick(data) {
@@ -150,7 +151,11 @@ export default {
       this.submitType = "add";
       this.form = cloneDeep(this.formDefault);
     },
+    cancel() {
+      this.dialogVisible = false;
+    },
     submit(val) {
+      this.dialogVisible = false;
       switch (this.submitType) {
         case "add":
           this.add(val);

@@ -1,12 +1,6 @@
 <template>
   <div>
-    <el-dialog
-      :title="title"
-      :visible.sync="visible"
-      width="30%"
-      :before-close="handleClose"
-      center
-    >
+    <el-dialog :title="title" :visible.sync="visible" width="30%" center>
       <el-form
         :model="data"
         ref="form"
@@ -34,7 +28,7 @@
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="visible = false">取 消</el-button>
+        <el-button @click="handelCancel">取 消</el-button>
         <el-button type="primary" @click="handelSubmit">确 定</el-button>
       </span>
     </el-dialog>
@@ -94,8 +88,9 @@ export default {
     },
   },
   methods: {
-    handleClose() {
+    handelCancel() {
       this.visible = false;
+      this.$emit("cancel");
     },
     handelSubmit() {
       this.visible = false;
