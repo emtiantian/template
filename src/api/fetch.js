@@ -1,6 +1,7 @@
 import axios  from "axios";
 import { message } from "element-ui";
 let url = process.env.NODE_ENV=="production"?window.env.baseUrl:window.location.orgin
+
 export  const server =axios.create({baseURL:url})
 server.interceptors.request.use((config)=>{
   return config

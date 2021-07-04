@@ -172,8 +172,7 @@ export default {
 };
 </script>
 
-<style>
-.content {
-  text-align: left;
-}
+<style lang="sass" scoped>
+.content
+  text-align: left
 </style>

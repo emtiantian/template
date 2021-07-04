@@ -5,6 +5,7 @@ import home from '../views/Home.vue';
 import page from '../views/Page.vue';
 import user from '../views/user.vue'
 import car from '../views/car.vue'
+import {isLogin} from "@/utils/userUtils.js"
 
 Vue.use(VueRouter);
 
@@ -78,10 +79,24 @@ export const routes = [
   },
 ];
 
+
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
 });
+// 登录拦截
+// router.beforeEach((to, from, next) => {
+//   //
+//   if(to.path.indexOf("login")>-1){
+//     next()
+//   }else{
+//     if(isLogin()){
+//       next()
+//     }else{
+//       next({path:"/login"})
+//     }
+//   }
+// })
 
 export default router;
