@@ -137,8 +137,10 @@ export default {
   watch: {
     currentPage(val, oldVal) {
       this.tableData = cloneDeep(this.data).splice(
-        (oldVal - 1) * tablePagination.pageSize,
-        val * tablePagination.pageSize
+        (val - 1) * this.tablePagination.pageSize,
+        this.total < val * this.tablePagination.pageSize
+          ? this.total
+          : this.tablePagination.pageSize
       );
     },
     data() {
