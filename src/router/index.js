@@ -4,7 +4,7 @@ import Layout from '@/views/layout/Layout.vue';
 import home from '../views/Home.vue';
 import page from '../views/Page.vue';
 import user from '../views/user.vue'
-import bus from '../views/bus.vue'
+import car from '../views/car.vue'
 
 Vue.use(VueRouter);
 
@@ -53,15 +53,15 @@ export const routes = [
     ],
   },
   {
-    path: '/bus',
+    path: '/car',
     component: Layout,
-    meta: { title: 'bus', category: 'bus', parent: '-1' },
+    meta: { title: 'car', category: 'car', parent: '-1' },
     children: [
       {
         path: '',
-        component: bus,
-        name: 'bus',
-        meta: { title: 'bus', category: 'bus' },
+        component: car,
+        name: 'car',
+        meta: { title: 'car', category: 'car' },
       },
     ],
   },

@@ -1,28 +1,31 @@
-|
-
 import axios  from "axios";
 import { message } from "element-ui";
 
-export const serve =axios.create({baseURL:window.env.baseURL})
 
-axios.interceptors.request.use((config)=>{
+export  const server =axios.create({baseURL:window.env.baseUrl})
+server.interceptors.request.use((config)=>{
   return config
 })
-axios.interceptors.response.use((response)=>{
+server.interceptors.response.use((response)=>{
   if(response.status === 200){
-    if(response.data.status){
-      return response.data.data
+    if(response.data.State){
+      try {
+        return JSON.parse(response.data.DataJSON)
+      } catch (error) {
+        console.log("json错误",error)
+      }
     }else{
-      message({
+      message.error({
         type:"error",
         text:response.data.message||"服务繁忙请重试"
       })
     }
 
   }else{
-    message({
+    message.error({
       type:"error",
       text:response.data.message||"服务繁忙请重试"
     })
   }
 })
+

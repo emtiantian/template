@@ -5,6 +5,7 @@
       :stripe="true"
       :border="true"
       style="width: 100%"
+      size="mini"
     >
       <template v-for="item in tableParam">
         <el-table-column

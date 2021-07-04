@@ -22,7 +22,7 @@
 import dataTable from "@/components/dataTable/index.vue";
 import dialogForm from "@/components/dialogForm/index.vue";
 import { cloneDeep } from "lodash";
-import { getUser } from "@/api/index.js";
+import { getCar, addCar } from "@/api/index.js";
 export default {
   components: {
     dataTable,
@@ -45,23 +45,13 @@ export default {
           type: "column",
         },
         {
-          prop: "phone",
-          label: "电话",
+          prop: "gpsmachinecode",
+          label: "gps编码",
           type: "column",
         },
         {
-          prop: "address",
-          label: "地址",
-          type: "column",
-        },
-        {
-          prop: "cardcode",
-          label: "卡片code",
-          type: "column",
-        },
-        {
-          prop: "remark",
-          label: "备注",
+          prop: "personcardmachinecode",
+          label: "读卡器设备编号",
           type: "column",
         },
         {
@@ -102,10 +92,12 @@ export default {
       formItem: [
         { key: "name", label: "姓名", type: "input" },
         { key: "code", label: "编码", type: "input" },
-        { key: "phone", label: "电话", type: "input" },
-        { key: "address", label: "地址", type: "textarea" },
-        { key: "cardcode", label: "卡片code", type: "input" },
-        { key: "remark", label: "备注", type: "textarea" },
+        { key: "gpsmachinecode", label: "gps编码", type: "input" },
+        {
+          key: "personcardmachinecode",
+          label: "设备编号",
+          type: "input",
+        },
       ],
     };
   },
@@ -114,14 +106,14 @@ export default {
   },
   methods: {
     get() {
-      getUser().then((val) => {
+      getCar().then((val) => {
         this.data = val;
       });
     },
     add(val) {
-      // addUser(val).then(() => {
-      //   this.$message("添加成功");
-      // });
+      addCar(val).then(() => {
+        this.$message("添加成功");
+      });
     },
     edit(val) {
       // edit(val.id, val).then(() => {
@@ -140,7 +132,6 @@ export default {
       this.form = cloneDeep(data);
     },
     buttonClick(type, val) {
-      console.log(type + val);
       switch (type) {
         case "delete":
           this.delete(val.id);
