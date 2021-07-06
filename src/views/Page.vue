@@ -11,7 +11,13 @@ import ol from "openlayers";
 import "ol3-layerswitcher/src/ol3-layerswitcher";
 export default {
   name: "Page",
-  mounted() {
+   data() {
+    return {
+      map: {},
+      source: {},
+    };
+  },
+  mounted() {    
     this.initMap();
   },
   methods: {
@@ -21,13 +27,21 @@ export default {
         target: "map",
         layers: [
           new ol.layer.Tile({
-            title: "天地图",
-            source: new ol.source.OSM(),
+            title: "厂区地图",
+            source: new ol.source.TileWMS({
+              url: "http://222.223.86.32:18080/geoserver/hxgt/wms",
+              params: {
+                'FORMAT': "image/png",
+                'VERSION': "1.1.1",
+                'LAYERS': "hxgt",
+              },
+            }),
           }),
+       
         ],
         view: new ol.View({
-          center: ol.proj.fromLonLat([120.41, 36.82]),
-          zoom: 10,
+          center: ol.proj.fromLonLat([118.866, 39.7]),
+          zoom: 16,
         }),
       });
       var layerSwitcher = new ol.control.LayerSwitcher({
@@ -35,6 +49,7 @@ export default {
       });
       map.addControl(layerSwitcher);
     },
+  
   },
 };
 </script>

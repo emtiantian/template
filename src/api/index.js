@@ -14,3 +14,6 @@ export function addCar(data){
 export function login(data){
   return server.post("Svc/UserService.svc/Login",data)
 }
+export function getCarCurrentPosition(){
+  return server.get("/Svc/GPSInfoService.svc/GetCarCurrentPosition")
+}
