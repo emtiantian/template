@@ -13,6 +13,7 @@ import "ol3-layerswitcher/src/ol3-layerswitcher.css";
 import "ol3-layerswitcher/src/ol3-layerswitcher";
 import { getCarCurrentPosition } from "@/api/index.js";
 import ssc from "@/assets/ssc-b.png";
+import{cloneDeep} from 'lodash'
 
 export default {
   name: "Page",
@@ -21,13 +22,19 @@ export default {
       timer: "",
       map: {},
       source: {},
-      sourcePositon: {},
+      sourcePositon: [],
       iconStyle: new ol.style.Style({
         image: new ol.style.Icon({
           anchor: [0.5, 0.9],
           src: ssc,
           crossOrigin: "",
           scale: 0.1,
+        }),
+        text: new ol.style.Text({
+          text: "",
+          scale: 1,
+          textAlign: "center",
+          textBaseline: "top",
         }),
       }),
     };
@@ -38,8 +45,12 @@ export default {
     this.timer = setInterval(this.loadPositions, 10000);
   },
   methods: {
+    getIconStyle(text) {
+      let iconStyle = cloneDeep(this.iconStyle);
+      iconStyle.getText().setText(text);
+      return iconStyle;
+    },
     // 创建地图
-
     initMap() {
       this.sourcePositon = new ol.source.Vector();
       this.map = new ol.Map({
@@ -92,22 +103,64 @@ export default {
       this.map.addControl(layerSwitcher);
       // this.addLine();
     },
+
     loadPositions() {
-      this.sourcePositon.clear();
+      // this.sourcePositon.clear();
       getCarCurrentPosition().then((val) => {
         //this. = val;
-        val.forEach((element) => {
-          var iconFeature = new ol.Feature({
-            geometry: new ol.geom.Point(
-              ol.proj.fromLonLat([element.Lng * 1, element.Lat * 1])
-            ),
+        if (this.sourcePositon.features && this.sourcePositon.features.length >= val.length) {
+          val.forEach((element, i) => {
+            // 测试代码
+            if(element.CarName =="3号洒水车"){
+              debugger
+              let randomlat = element.Lat+ Math.random()*(0.0005-0.0002)+0.0002
+              this.sourcePositon.features[i].setStyle(this.getIconStyle(element.CarName)),
+               this.sourcePositon.features[i].setGeometry(
+                new ol.geom.Point(
+                  ol.proj.fromLonLat([element.Lng * 1, randomlat * 1])
+                )
+              );
+            }else{
+               this.sourcePositon.features[i].setStyle(this.getIconStyle(element.CarName)),
+               this.sourcePositon.features[i].setGeometry(
+                new ol.geom.Point(
+                  ol.proj.fromLonLat([element.Lng * 1, element.Lat * 1])
+                )
+              );
+            }
+            // this.sourcePositon.features[i].setStyle(this.getIconStyle(element.CarName)),
+            //    this.sourcePositon.features[i].setGeometry(
+            //     new ol.geom.Point(
+            //       ol.proj.fromLonLat([element.Lng * 1, element.Lat * 1])
+            //     )
+            //   );
+           
           });
+        } else {
+          val.forEach((element, i) => {
+            if (i < this.sourcePositon.length) {
+              //  这里设置2个属性
+                 this.sourcePositon.features[i].setStyle(this.getIconStyle(element.CarName)),
+                 this.sourcePositon.features[i].setGeometry(
+                  new ol.geom.Point(
+                    ol.proj.fromLonLat([element.Lng * 1, element.Lat * 1])
+                  )
+                );
+            } else {
+              let iconFeature = new ol.Feature({
+                geometry: new ol.geom.Point(
+                  ol.proj.fromLonLat([element.Lng * 1, element.Lat * 1])
+                ),
+              });
 
-          iconFeature.setStyle(this.iconStyle);
-          this.sourcePositon.addFeature(iconFeature);
-        });
+              iconFeature.setStyle(this.getIconStyle(element.CarName));
+              this.sourcePositon.addFeature(iconFeature);
+            }
+          });
+        }
       });
     },
+
     // 创建轨迹图层
     addLine() {
       this.source = new ol.source.Vector();
