@@ -72,17 +72,17 @@ const router = new VueRouter({
   routes,
 });
 // 登录拦截
-// router.beforeEach((to, from, next) => {
-//   //
-//   if(to.path.indexOf("login")>-1){
-//     next()
-//   }else{
-//     if(isLogin()){
-//       next()
-//     }else{
-//       next({path:"/login"})
-//     }
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  //
+  if(to.path.indexOf("login")>-1){
+    next()
+  }else{
+    if(isLogin()){
+      next()
+    }else{
+      next({path:"/login"})
+    }
+  }
+})
 
 export default router;
