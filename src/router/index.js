@@ -4,7 +4,6 @@ import Layout from '@/views/layout/Layout.vue';
 import home from '../views/Home.vue';
 import page from '../views/Page.vue';
 import user from '../views/user.vue'
-import car from '../views/car.vue'
 import {isLogin} from "@/utils/userUtils.js"
 
 Vue.use(VueRouter);
@@ -50,19 +49,6 @@ export const routes = [
         component: user,
         name: 'user',
         meta: { title: '人员管理', category: 'user'  },
-      },
-    ],
-  },
-  {
-    path: '/car',
-    component: Layout,
-    meta: { title: 'car', category: 'car', parent: '-1' },
-    children: [
-      {
-        path: '',
-        component: car,
-        name: 'car',
-        meta: { title: '车辆管理', category: 'car' },
       },
     ],
   },
