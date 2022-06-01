@@ -1,16 +1,8 @@
 <template>
-  <div
-    :id="id"
-    class="scroll"
-    :style="{
-      height: height,
-    }"
-  >
+  <div :id="id" class="scroll" :style="{ height: height }">
     <div
       :class="className"
-      :style="{
-        'animation-play-state': !isHover ? 'running' : 'paused',
-      }"
+      :style="{ 'animation-play-state': !isHover ? 'running' : 'paused' }"
     >
       <slot v-bind:scrollKey="'scroll1'"></slot>
       <slot v-bind:scrollKey="'scroll2'"></slot>
@@ -20,8 +12,9 @@
 
 <script>
 export default {
+  name: "Speed",
   props: {
-    speed: { type: Number, default: 60 },
+    speed: { type: Number, default: 10 },
     hoverStop: { type: Boolean, default: true },
   },
   data() {
@@ -57,6 +50,9 @@ export default {
     },
   },
   methods: {
+    reload() {
+      this.componentDidMount();
+    },
     setScrollStyle(offsetHeight, speed) {
       const uid = Math.random().toString(36).substr(2);
       const style = document.createElement("style");
@@ -108,8 +104,7 @@ export default {
         }
         // 动态获得父组件高度
         this.height = getComputedStyle(scrollContent.parentElement).height;
-        this.offsetHeight = scrollContent.offsetHeight;
-
+        this.offsetHeight = scrollContent.childNodes[0].offsetHeight;
         const scrollClass = this.setScrollStyle(
           this.offsetHeight / 2,
           this.speed_
